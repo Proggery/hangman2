@@ -1,0 +1,13 @@
+.wordChar {
+  border-bottom: 2px solid black;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wordChar span {
+  font-size: 2rem;
+}
+/*# sourceMappingURL=style.css.map */
