@@ -9,15 +9,23 @@ const win = document.getElementById("win");
 const lost = document.getElementById("lost");
 const randWordArr = [];
 let badchars = [];
+let counter = 1;
 
 const start = document.getElementById("start");
 const svgFrame = document.getElementById("Frame_1");
 
-
-function svgIcon(i) {
+function addDnoneClass(i) {
   const svg = document.getElementById(`Vector_${i}`);
-  svg.classList.add("d-none");
-  return svg;
+  return svg.classList.add("d-none");
+}
+
+function removeDnoneClass(i) {
+  const svg = document.getElementById(`Vector_${i}`);
+  return svg.classList.remove("d-none");
+}
+
+for (let i = 1; i < svgFrame.children.length; i++) {
+  addDnoneClass(i);
 }
 
 for (let i = 0; i < randWord.length; i++) {
@@ -36,15 +44,8 @@ char.addEventListener("keyup", () => {
     return e === charValue;
   });
 
-  // let i = 0
-
   if (randWordArr[charIndex] !== charValue) {
     badchars.push(charValue);
-    svgIcon(1).classList.remove("d-none")
-    // while (i<0) {
-
-    //   i++
-    // }
   }
 
   for (let i = 0; i < randWordArr.length; i++) {
@@ -60,16 +61,64 @@ char.addEventListener("keyup", () => {
   }
 
   badchars = [...new Set(badchars)];
-  console.log(badchars);
 
-  if (badchars.length >= 5) {
+  if (badchars.length === 11) {
     lost.innerHTML = "vesztettél!";
   }
 
-  char.value = "";
-});
+  while (badchars.length + 1 > counter) {
+    removeDnoneClass(counter);
 
-start.addEventListener("click", () => {
-  console.log("teszt");
-  svg1.classList.remove("d-none");
+    if (counter === 6) {
+      removeDnoneClass(6);
+
+      setTimeout(() => {
+        removeDnoneClass(7);
+        removeDnoneClass(8);
+      }, 2000);
+
+      // EYES
+      setInterval(() => {
+        const add = setTimeout(() => {
+          addDnoneClass(7);
+          addDnoneClass(8);
+        }, 10);
+
+        setTimeout(() => {
+          setTimeout(() => {
+            addDnoneClass(7);
+            addDnoneClass(8);
+          }, 10);
+          clearTimeout(add);
+          setTimeout(() => {
+            removeDnoneClass(7);
+            removeDnoneClass(8);
+          }, 10);
+        }, 10);
+      }, 5000);
+
+      // MOUTH
+      const timer = setTimeout(removeDnoneClass(9), 1000);
+      setTimeout(() => {
+        clearTimeout(timer);
+        addDnoneClass(9);
+      }, 4000);
+
+      setTimeout(removeDnoneClass(15), 7000);
+    }
+    counter++;
+    
+    if (counter > 6) {
+      let counter_2 = counter + 2;
+      removeDnoneClass(counter_2);
+    }
+    if (counter > 9) {
+      addDnoneClass(9)
+    }
+
+    console.log(badchars.length)
+  }
+
+
+  char.value = "";
 });
