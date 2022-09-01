@@ -63,7 +63,11 @@ char.addEventListener("keyup", () => {
   badchars = [...new Set(badchars)];
 
   if (badchars.length === 11) {
+    word.innerHTML = "";
     lost.innerHTML = "vesztettél!";
+    for (let i = 0; i < randWordArr.length; i++) {
+      word.innerHTML += `<div id="charItem-${i}" class='wordChar mx-2'>${randWordArr[i]}</div>`;
+    }
   }
 
   while (badchars.length + 1 > counter) {
@@ -107,18 +111,17 @@ char.addEventListener("keyup", () => {
       setTimeout(removeDnoneClass(15), 7000);
     }
     counter++;
-    
+
     if (counter > 6) {
       let counter_2 = counter + 2;
       removeDnoneClass(counter_2);
     }
     if (counter > 9) {
-      addDnoneClass(9)
+      addDnoneClass(9);
     }
 
-    console.log(badchars.length)
+    console.log(badchars.length);
   }
-
 
   char.value = "";
 });
