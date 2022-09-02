@@ -5,9 +5,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
 }
 
-.wordChar span {
-  font-size: 2rem;
+.charColorBlack {
+  background: transparent;
+}
+
+.charColorRed {
+  color: #f30000;
 }
 /*# sourceMappingURL=style.css.map */

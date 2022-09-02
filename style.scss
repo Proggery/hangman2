@@ -1,12 +1,16 @@
-.wordChar{
-    border-bottom: 2px solid black;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.wordChar {
+  border-bottom: 2px solid black;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
 
-    span {
-        font-size: 2rem;
-    }
+.charColorBlack {
+  background: transparent;
+}
+.charColorRed {
+  color: rgb(243, 0, 0);
 }

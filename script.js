@@ -8,6 +8,7 @@ const error = document.getElementById("error");
 const win = document.getElementById("win");
 const lost = document.getElementById("lost");
 const randWordArr = [];
+const currentWordArr = [];
 let badchars = [];
 let counter = 1;
 
@@ -54,6 +55,7 @@ char.addEventListener("keyup", () => {
 
     if (charValue === element) {
       charItem.innerHTML = charValue;
+      currentWordArr.push(charValue);
     }
   }
   if (word.textContent === randWord) {
@@ -61,67 +63,96 @@ char.addEventListener("keyup", () => {
   }
 
   badchars = [...new Set(badchars)];
-
   if (badchars.length === 11) {
     word.innerHTML = "";
     lost.innerHTML = "vesztettél!";
+    let charColor;
+
     for (let i = 0; i < randWordArr.length; i++) {
-      word.innerHTML += `<div id="charItem-${i}" class='wordChar mx-2'>${randWordArr[i]}</div>`;
+      const randChar = randWordArr[i];
+
+      for (let y = 0; y < currentWordArr.length; y++) {
+        const currentChar = currentWordArr[y];
+
+        if (randChar === currentChar) {
+          charColor = "charColorBlack";
+        } else {
+          charColor = "charColorRed";
+        }
+      }
+      word.innerHTML += `<div id="charItem-${i}" class='wordChar mx-2 ${charColor}'>${randChar}</div>`;
+      removeDnoneClass(16);
+      removeDnoneClass(17);
+      removeDnoneClass(18);
+      removeDnoneClass(19);
     }
   }
 
-  while (badchars.length + 1 > counter) {
-    removeDnoneClass(counter);
+  if (badchars.length < 11) {
+    while (badchars.length + 1 > counter) {
+      removeDnoneClass(counter);
 
-    if (counter === 6) {
-      removeDnoneClass(6);
-
-      setTimeout(() => {
-        removeDnoneClass(7);
-        removeDnoneClass(8);
-      }, 2000);
-
-      // EYES
-      setInterval(() => {
-        const add = setTimeout(() => {
-          addDnoneClass(7);
-          addDnoneClass(8);
-        }, 10);
+      if (counter === 6) {
+        removeDnoneClass(6);
 
         setTimeout(() => {
-          setTimeout(() => {
+          removeDnoneClass(7);
+          removeDnoneClass(8);
+        }, 800);
+
+        // EYES
+        const eyesInterval = setInterval(() => {
+          const add = setTimeout(() => {
             addDnoneClass(7);
             addDnoneClass(8);
           }, 10);
-          clearTimeout(add);
+
           setTimeout(() => {
-            removeDnoneClass(7);
-            removeDnoneClass(8);
+            setTimeout(() => {
+              addDnoneClass(7);
+              addDnoneClass(8);
+            }, 10);
+            clearTimeout(add);
+            const removeTimer = setTimeout(() => {
+              console.log(badchars.length);
+              if (badchars.length === 11) {
+                clearTimeout(removeTimer);
+                addDnoneClass(7);
+                addDnoneClass(8);
+              } else {
+                removeDnoneClass(7);
+                removeDnoneClass(8);
+              }
+            }, 10);
           }, 10);
-        }, 10);
-      }, 5000);
+        }, 5000);
 
-      // MOUTH
-      const timer = setTimeout(removeDnoneClass(9), 1000);
-      setTimeout(() => {
-        clearTimeout(timer);
+        // MOUTH
+        const timer = setTimeout(removeDnoneClass(9), 1000);
+        setTimeout(() => {
+          clearTimeout(timer);
+          addDnoneClass(9);
+        }, 2000);
+
+        setTimeout(removeDnoneClass(15), 7000);
+      }
+      counter++;
+
+      if (counter > 6) {
+        let counter_2 = counter + 2;
+        removeDnoneClass(counter_2);
+      }
+      if (counter > 9) {
         addDnoneClass(9);
-      }, 4000);
-
-      setTimeout(removeDnoneClass(15), 7000);
+      }
     }
-    counter++;
-
-    if (counter > 6) {
-      let counter_2 = counter + 2;
-      removeDnoneClass(counter_2);
-    }
-    if (counter > 9) {
-      addDnoneClass(9);
-    }
-
-    console.log(badchars.length);
+    char.value = "";
+  } else {
+    char.value = "";
+    return setInterval(() => {
+      addDnoneClass(7);
+      addDnoneClass(8)
+    },1)
   }
 
-  char.value = "";
 });
