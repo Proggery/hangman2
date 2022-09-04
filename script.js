@@ -50,14 +50,16 @@ for (let i = 0; i < randWordArr.length; i++) {
 }
 
 //----- START button addEventLisener
-start.addEventListener('click', () => {
+start.addEventListener("click", () => {
   if (confirm("Are you sure you want to start a new game?")) {
-    document.location.reload()
+    document.location.reload();
   }
-})
+});
+
 //----- KEYUP addEventLisener
 char.addEventListener("keyup", () => {
   charValue = char.value;
+  error.innerHTML = "";
 
   allChars.push(charValue);
 
@@ -79,12 +81,32 @@ char.addEventListener("keyup", () => {
     }
   }
 
+  // WIN GAME
   if (word.textContent === randWord) {
+    win.classList.add("winGame");
     win.innerHTML = "You Win!";
-    char.classList.add("d-none")
+    char.classList.add("d-none");
+    word.classList.add("charColorGreen")
+
+    for (let i = 1; i < 20; i++) {
+      console.log(i);
+      addDnoneClass(i);
+    }
+    return setInterval(() => {
+      addDnoneClass(7);
+      addDnoneClass(8);
+    }, 1);
   }
 
   badChars = [...new Set(badChars)];
+
+  console.log(badChars);
+
+  // ERROR
+  for (let i = 0; i < badChars.length; i++) {
+    const badChar = badChars[i];
+    error.innerHTML += `<span class="mx-1 charColorRed">${badChar}</span>`;
+  }
 
   const filterItem = newRandArr.filter((e) => {
     return e !== charValue;
@@ -97,8 +119,10 @@ char.addEventListener("keyup", () => {
     newRandArr.push(item);
   }
 
+  // LOST GAME
   if (badChars.length > 10) {
     lost.innerHTML = "Game over!";
+    lost.classList.add("lostGame");
 
     for (let i = 0; i < word.children.length; i++) {
       const element = word.children[i];
@@ -108,7 +132,7 @@ char.addEventListener("keyup", () => {
       }
     }
 
-    char.classList.add("d-none")
+    char.classList.add("d-none");
     removeDnoneClass(14);
     removeDnoneClass(16);
     removeDnoneClass(17);

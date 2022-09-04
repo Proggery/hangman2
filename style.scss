@@ -1,38 +1,122 @@
-header {
-}
-main {
-  justify-content: center;
-  align-items: center;
+body,
+* {
+  background: rgb(190, 190, 190);
 
-  input {
-    width: 70px;
-    height: 70px;
-    font-size: 2rem;
-    text-align: center;
+  header {
+    #start {
+      font-size: 1.4rem;
+      font-weight: 700;
+      width: 200px;
+    }
   }
-  .wordChar {
-    border-bottom: 2px solid black;
-    width: 40px;
-    height: 40px;
-    display: flex;
+  main {
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
-  }
-  .charColorRed {
-    color: rgb(243, 0, 0);
-  }
-  .svgFrame {
-    display: inline-flex;
-    position: relative;
 
-    #win {
-      position: absolute;
-      top: 50%;
+    #error {
+      height: 2rem;
+      span {
+        font-size: 2rem;
+      }
     }
+    input {
+      width: 70px;
+      height: 70px;
+      font-size: 2rem;
+      text-align: center;
+      border: 4px dashed;
+      border-radius: 10px;
+      outline: none;
+    }
+    .wordChar {
+      border-bottom: 2px solid black;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      line-height: 0;
+    }
+    .charColorRed {
+      color: rgb(243, 0, 0);
+    }
+    .charColorGreen {
+      color: rgb(0, 150, 0);
+    }
+    .svgFrame {
+      display: inline-flex;
+      position: relative;
 
-    svg{
-      height: 400px;
+      .winGame {
+        background: rgb(0, 239, 0);
+        font-size: 2rem;
+        padding: 0.3rem 1rem;
+        position: absolute;
+        top: 0;
+        left: 33%;
+        rotate: -90deg;
+        animation: winGame 1000ms ease-in-out forwards;
+        opacity: 0;
+        border-radius: 10px;
+      }
+
+      @keyframes winGame {
+        50% {
+          rotate: -90deg;
+        }
+        100% {
+          opacity: 1;
+          top: 50%;
+          left: 33%;
+          rotate: 0deg;
+        }
+      }
+
+      .lostGame {
+        background: red;
+        position: absolute;
+        top: 70%;
+        left: -2rem;
+        rotate: -55deg;
+        animation: lostGame 1400ms ease-in-out 000ms forwards;
+        opacity: 0;
+        padding: 0.1rem 1rem;
+        font-size: 1.2rem;
+        border-radius: 7px;
+      }
+
+      @keyframes lostGame {
+        40% {
+          opacity: 0;
+          rotate: -45deg;
+        }
+        50% {
+          rotate: -40deg;
+        }
+        60% {
+          rotate: -35deg;
+        }
+        70% {
+          rotate: -30deg;
+        }
+        80% {
+          rotate: -25deg;
+        }
+        90% {
+          rotate: -20deg;
+        }
+        100% {
+          opacity: 1;
+          top: 45%;
+          left: 4.6rem;
+          rotate: -20deg;
+        }
+      }
+
+      svg {
+        height: 400px;
+      }
     }
   }
 }

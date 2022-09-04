@@ -14,11 +14,11 @@
     <title>Document</title>
   </head>
   <body>
-    <header>
-      <button id="start">New Game</button>
+    <header class="d-flex flex-column justify-content-center pt-4">
+      <button id="start" class="btn btn-outline-success p-3 mx-auto">New Game</button>
     </header>
-    <main class="d-flex flex-column">
-      <div id="error" class="d-flex"></div>
+    <main class="d-flex flex-column position-relative pt-2">
+      <div id="error" class="d-flex justify-content-center align-items-center"></div>
       <div class="svgFrame">
         <div id="win" class="d-flex"></div>
         <div id="lost" class="d-flex"></div>
@@ -33,7 +33,7 @@
             <path
               width="444"
               height="561"
-              fill="white"
+              fill="transparent"
               d="M0 0 L444 0 L444 561 L0 561 Z"
               class="NDgohVVH_0"
             ></path>
@@ -303,8 +303,8 @@
           </style>
         </svg>
       </div>
-      <div id="word" class="d-flex"></div>
-      <input id="char" type="text" />
+      <div id="word" class="d-flex pb-5"></div>
+      <input id="char" type="text" class="border-success" />
     </main>
 
     <script
