@@ -1,4 +1,16 @@
-.wordChar {
+main {
+  justify-content: center;
+  align-items: center;
+}
+
+main input {
+  width: 70px;
+  height: 70px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+main .wordChar {
   border-bottom: 2px solid black;
   width: 40px;
   height: 40px;
@@ -8,11 +20,21 @@
   font-size: 2rem;
 }
 
-.charColorBlack {
-  background: transparent;
+main .charColorRed {
+  color: #f30000;
 }
 
-.charColorRed {
-  color: #f30000;
+main .svgFrame {
+  display: inline-flex;
+  position: relative;
+}
+
+main .svgFrame #win {
+  position: absolute;
+  top: 50%;
+}
+
+main .svgFrame svg {
+  height: 400px;
 }
 /*# sourceMappingURL=style.css.map */

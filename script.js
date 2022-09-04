@@ -1,17 +1,23 @@
-// const wordArr = ["csoki", "lali"];
-const wordArr = ["lali"];
+// async function getFruits() {
+//   const response = await fetch('https://fakestoreapi.com/products');
+//   const data = await response.json();
+//   console.log(data);
+// }
+// getFruits();
+
+const wordArr = ["apple"];
 const randWord = wordArr[Math.floor(Math.random() * wordArr.length)];
 const word = document.getElementById("word");
 const char = document.getElementById("char");
-const check = document.getElementById("check");
 const error = document.getElementById("error");
 const win = document.getElementById("win");
 const lost = document.getElementById("lost");
 const randWordArr = [];
 const currentWordArr = [];
-let badchars = [];
+let badChars = [];
+let allChars = [];
+let newRandArr = [];
 let counter = 1;
-
 const start = document.getElementById("start");
 const svgFrame = document.getElementById("Frame_1");
 
@@ -38,15 +44,29 @@ for (let i = 0; i < randWordArr.length; i++) {
   word.innerHTML += `<div id="charItem-${i}" class='wordChar mx-2'></div>`;
 }
 
+for (let i = 0; i < randWordArr.length; i++) {
+  const randChar = randWordArr[i];
+  newRandArr.push(randChar);
+}
+
+//----- START button addEventLisener
+start.addEventListener('click', () => {
+  if (confirm("Are you sure you want to start a new game?")) {
+    document.location.reload()
+  }
+})
+//----- KEYUP addEventLisener
 char.addEventListener("keyup", () => {
   charValue = char.value;
+
+  allChars.push(charValue);
 
   const charIndex = randWordArr.findIndex((e) => {
     return e === charValue;
   });
 
   if (randWordArr[charIndex] !== charValue) {
-    badchars.push(charValue);
+    badChars.push(charValue);
   }
 
   for (let i = 0; i < randWordArr.length; i++) {
@@ -58,38 +78,46 @@ char.addEventListener("keyup", () => {
       currentWordArr.push(charValue);
     }
   }
+
   if (word.textContent === randWord) {
-    win.innerHTML = "Nyertél";
+    win.innerHTML = "You Win!";
+    char.classList.add("d-none")
   }
 
-  badchars = [...new Set(badchars)];
-  if (badchars.length === 11) {
-    word.innerHTML = "";
-    lost.innerHTML = "vesztettél!";
-    let charColor;
+  badChars = [...new Set(badChars)];
 
-    for (let i = 0; i < randWordArr.length; i++) {
-      const randChar = randWordArr[i];
+  const filterItem = newRandArr.filter((e) => {
+    return e !== charValue;
+  });
 
-      for (let y = 0; y < currentWordArr.length; y++) {
-        const currentChar = currentWordArr[y];
+  newRandArr = [];
 
-        if (randChar === currentChar) {
-          charColor = "charColorBlack";
-        } else {
-          charColor = "charColorRed";
-        }
+  for (let i = 0; i < filterItem.length; i++) {
+    const item = filterItem[i];
+    newRandArr.push(item);
+  }
+
+  if (badChars.length > 10) {
+    lost.innerHTML = "Game over!";
+
+    for (let i = 0; i < word.children.length; i++) {
+      const element = word.children[i];
+
+      if (!element.innerHTML) {
+        element.innerHTML += `<div class='mx-2 charColorRed'>${randWordArr[i]}</div>`;
       }
-      word.innerHTML += `<div id="charItem-${i}" class='wordChar mx-2 ${charColor}'>${randChar}</div>`;
-      removeDnoneClass(16);
-      removeDnoneClass(17);
-      removeDnoneClass(18);
-      removeDnoneClass(19);
     }
+
+    char.classList.add("d-none")
+    removeDnoneClass(14);
+    removeDnoneClass(16);
+    removeDnoneClass(17);
+    removeDnoneClass(18);
+    removeDnoneClass(19);
   }
 
-  if (badchars.length < 11) {
-    while (badchars.length + 1 > counter) {
+  if (badChars.length < 11) {
+    while (badChars.length + 1 > counter) {
       removeDnoneClass(counter);
 
       if (counter === 6) {
@@ -114,8 +142,7 @@ char.addEventListener("keyup", () => {
             }, 10);
             clearTimeout(add);
             const removeTimer = setTimeout(() => {
-              console.log(badchars.length);
-              if (badchars.length === 11) {
+              if (badChars.length === 11) {
                 clearTimeout(removeTimer);
                 addDnoneClass(7);
                 addDnoneClass(8);
@@ -151,8 +178,7 @@ char.addEventListener("keyup", () => {
     char.value = "";
     return setInterval(() => {
       addDnoneClass(7);
-      addDnoneClass(8)
-    },1)
+      addDnoneClass(8);
+    }, 1);
   }
-
 });

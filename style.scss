@@ -1,16 +1,38 @@
-.wordChar {
-  border-bottom: 2px solid black;
-  width: 40px;
-  height: 40px;
-  display: flex;
+header {
+}
+main {
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-}
 
-.charColorBlack {
-  background: transparent;
-}
-.charColorRed {
-  color: rgb(243, 0, 0);
+  input {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+    text-align: center;
+  }
+  .wordChar {
+    border-bottom: 2px solid black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+  }
+  .charColorRed {
+    color: rgb(243, 0, 0);
+  }
+  .svgFrame {
+    display: inline-flex;
+    position: relative;
+
+    #win {
+      position: absolute;
+      top: 50%;
+    }
+
+    svg{
+      height: 400px;
+    }
+  }
 }
