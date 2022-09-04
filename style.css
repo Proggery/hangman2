@@ -21,6 +21,13 @@ main span {
   background: white;
 }
 
+main #word {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 main .wordChar {
   border-bottom: 2px solid black;
   width: 40px;

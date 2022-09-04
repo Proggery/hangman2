@@ -5,7 +5,15 @@
 // }
 // getFruits();
 
-const wordArr = ["alma", "őszibarack"];
+const wordArr = [
+  "apple",
+  "grape",
+  "strawberry",
+  "banana",
+  "pineapple",
+  "cherry",
+  "peach",
+];
 const randWord = wordArr[Math.floor(Math.random() * wordArr.length)];
 const word = document.getElementById("word");
 const char = document.getElementById("char");

@@ -20,6 +20,12 @@ main {
   span {
     background: white;
   }
+  #word {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .wordChar {
     border-bottom: 2px solid black;
     width: 40px;
