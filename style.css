@@ -122,6 +122,12 @@ main .svgFrame svg {
   height: 400px;
 }
 
+@media only screen and (max-width: 768px) {
+  main .svgFrame svg {
+    height: 300px;
+  }
+}
+
 main input {
   width: 70px;
   height: 70px;

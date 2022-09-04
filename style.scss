@@ -114,6 +114,10 @@ main {
 
     svg {
       height: 400px;
+
+      @include devices(tablet){
+        height: 300px;
+      }
     }
   }
   input {
