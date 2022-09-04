@@ -5,7 +5,7 @@
 // }
 // getFruits();
 
-const wordArr = ["apple"];
+const wordArr = ["alma", "őszibarack"];
 const randWord = wordArr[Math.floor(Math.random() * wordArr.length)];
 const word = document.getElementById("word");
 const char = document.getElementById("char");
@@ -20,6 +20,40 @@ let newRandArr = [];
 let counter = 1;
 const start = document.getElementById("start");
 const svgFrame = document.getElementById("Frame_1");
+// MOBILE DISPLAY
+const Keyboard = window.SimpleKeyboard.default;
+const myKeyboard = new Keyboard({
+  onChange: (input) => onChange(input),
+  onKeyPress: (button) => onKeyPress(button),
+});
+const hgRows = document.querySelector(".hg-rows");
+const hgButtons = document.querySelectorAll(".hg-button");
+hgRows.children[0].classList.add("d-none");
+
+for (let i = 0; i < hgButtons.length; i++) {
+  const button = hgButtons[i];
+  let dataSets = [".com", "@", "[", "]", "\\", "'", ";", ",", ".", "/"];
+
+  for (let i = 0; i < dataSets.length; i++) {
+    const data = dataSets[i];
+
+    if (button.dataset.skbtn === data) {
+      button.classList.add("d-none");
+    }
+  }
+  // if (button.dataset.skbtn === ".com" || button.dataset.skbtn === "@" ) {
+  //   button.classList.add("teszt")
+  // }
+  // switch (true) {
+  //   case button.dataset.skbtn === ".com":
+  //   case button.dataset.skbtn === "@":
+
+  //     break;
+
+  //   default:
+  //     break;
+  // }
+}
 
 function addDnoneClass(i) {
   const svg = document.getElementById(`Vector_${i}`);
@@ -56,6 +90,159 @@ start.addEventListener("click", () => {
   }
 });
 
+let charValue;
+let newValue;
+
+function onKeyPress(button) {
+  charValue = button;
+  error.innerHTML = "";
+
+  allChars.push(charValue);
+
+  const charIndex = randWordArr.findIndex((e) => {
+    return e === charValue;
+  });
+
+  if (randWordArr[charIndex] !== charValue) {
+    badChars.push(charValue);
+  }
+
+  for (let i = 0; i < randWordArr.length; i++) {
+    const charItem = document.getElementById(`charItem-${i}`);
+    const element = randWordArr[i];
+
+    if (charValue === element) {
+      charItem.innerHTML = charValue;
+      currentWordArr.push(charValue);
+    }
+  }
+
+  // WIN GAME
+  if (word.textContent === randWord) {
+    win.classList.add("winGame");
+    win.innerHTML = "You Win!";
+    char.classList.add("d-none");
+    word.classList.add("charColorGreen");
+
+    for (let i = 1; i < 20; i++) {
+      console.log(i);
+      addDnoneClass(i);
+    }
+    return setInterval(() => {
+      addDnoneClass(7);
+      addDnoneClass(8);
+    }, 1);
+  }
+
+  badChars = [...new Set(badChars)];
+
+  console.log(badChars);
+
+  // ERROR
+  for (let i = 0; i < badChars.length; i++) {
+    const badChar = badChars[i];
+    error.innerHTML += `<span class="mx-1 charColorRed">${badChar}</span>`;
+  }
+
+  const filterItem = newRandArr.filter((e) => {
+    return e !== charValue;
+  });
+
+  newRandArr = [];
+
+  for (let i = 0; i < filterItem.length; i++) {
+    const item = filterItem[i];
+    newRandArr.push(item);
+  }
+
+  // LOST GAME
+  if (badChars.length > 10) {
+    lost.innerHTML = "Game over!";
+    lost.classList.add("lostGame");
+
+    for (let i = 0; i < word.children.length; i++) {
+      const element = word.children[i];
+
+      if (!element.innerHTML) {
+        element.innerHTML += `<div class='mx-2 charColorRed'>${randWordArr[i]}</div>`;
+      }
+    }
+
+    char.classList.add("d-none");
+    removeDnoneClass(14);
+    removeDnoneClass(16);
+    removeDnoneClass(17);
+    removeDnoneClass(18);
+    removeDnoneClass(19);
+  }
+
+  if (badChars.length < 11) {
+    while (badChars.length + 1 > counter) {
+      removeDnoneClass(counter);
+
+      if (counter === 6) {
+        removeDnoneClass(6);
+
+        setTimeout(() => {
+          removeDnoneClass(7);
+          removeDnoneClass(8);
+        }, 800);
+
+        // EYES
+        const eyesInterval = setInterval(() => {
+          const add = setTimeout(() => {
+            addDnoneClass(7);
+            addDnoneClass(8);
+          }, 10);
+
+          setTimeout(() => {
+            setTimeout(() => {
+              addDnoneClass(7);
+              addDnoneClass(8);
+            }, 10);
+            clearTimeout(add);
+            const removeTimer = setTimeout(() => {
+              if (badChars.length === 11) {
+                clearTimeout(removeTimer);
+                addDnoneClass(7);
+                addDnoneClass(8);
+              } else {
+                removeDnoneClass(7);
+                removeDnoneClass(8);
+              }
+            }, 10);
+          }, 10);
+        }, 5000);
+
+        // MOUTH
+        const timer = setTimeout(removeDnoneClass(9), 1000);
+        setTimeout(() => {
+          clearTimeout(timer);
+          addDnoneClass(9);
+        }, 2000);
+
+        setTimeout(removeDnoneClass(15), 7000);
+      }
+      counter++;
+
+      if (counter > 6) {
+        let counter_2 = counter + 2;
+        removeDnoneClass(counter_2);
+      }
+      if (counter > 9) {
+        addDnoneClass(9);
+      }
+    }
+    char.value = "";
+  } else {
+    char.value = "";
+    return setInterval(() => {
+      addDnoneClass(7);
+      addDnoneClass(8);
+    }, 1);
+  }
+}
+
 //----- KEYUP addEventLisener
 char.addEventListener("keyup", () => {
   charValue = char.value;
@@ -86,7 +273,7 @@ char.addEventListener("keyup", () => {
     win.classList.add("winGame");
     win.innerHTML = "You Win!";
     char.classList.add("d-none");
-    word.classList.add("charColorGreen")
+    word.classList.add("charColorGreen");
 
     for (let i = 1; i < 20; i++) {
       console.log(i);
@@ -206,3 +393,8 @@ char.addEventListener("keyup", () => {
     }, 1);
   }
 });
+
+function onChange(input) {
+  document.querySelector(".input").value = input;
+  console.log("Input changed", input);
+}

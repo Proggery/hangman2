@@ -1,44 +1,27 @@
-body,
-* {
-  background: #bebebe;
-}
-
-body header #start,
-* header #start {
+header #start {
   font-size: 1.4rem;
   font-weight: 700;
   width: 200px;
 }
 
-body main,
-* main {
+main {
   justify-content: center;
   align-items: center;
 }
 
-body main #error,
-* main #error {
+main #error {
   height: 2rem;
 }
 
-body main #error span,
-* main #error span {
+main #error span {
   font-size: 2rem;
 }
 
-body main input,
-* main input {
-  width: 70px;
-  height: 70px;
-  font-size: 2rem;
-  text-align: center;
-  border: 4px dashed;
-  border-radius: 10px;
-  outline: none;
+main span {
+  background: white;
 }
 
-body main .wordChar,
-* main .wordChar {
+main .wordChar {
   border-bottom: 2px solid black;
   width: 40px;
   height: 40px;
@@ -49,24 +32,20 @@ body main .wordChar,
   line-height: 0;
 }
 
-body main .charColorRed,
-* main .charColorRed {
+main .charColorRed {
   color: #f30000;
 }
 
-body main .charColorGreen,
-* main .charColorGreen {
+main .charColorGreen {
   color: #009600;
 }
 
-body main .svgFrame,
-* main .svgFrame {
+main .svgFrame {
   display: inline-flex;
   position: relative;
 }
 
-body main .svgFrame .winGame,
-* main .svgFrame .winGame {
+main .svgFrame .winGame {
   background: #00ef00;
   font-size: 2rem;
   padding: 0.3rem 1rem;
@@ -91,8 +70,7 @@ body main .svgFrame .winGame,
   }
 }
 
-body main .svgFrame .lostGame,
-* main .svgFrame .lostGame {
+main .svgFrame .lostGame {
   background: red;
   position: absolute;
   top: 70%;
@@ -133,8 +111,37 @@ body main .svgFrame .lostGame,
   }
 }
 
-body main .svgFrame svg,
-* main .svgFrame svg {
+main .svgFrame svg {
   height: 400px;
+}
+
+main input {
+  width: 70px;
+  height: 70px;
+  font-size: 2rem;
+  text-align: center;
+  border: 4px dashed;
+  border-radius: 10px;
+  outline: none;
+}
+
+@media only screen and (max-width: 768px) {
+  main input {
+    display: none;
+  }
+}
+
+.simple-keyboard {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .simple-keyboard {
+    display: unset;
+  }
+}
+
+.hg-functionBtn {
+  display: none !important;
 }
 /*# sourceMappingURL=style.css.map */

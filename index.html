@@ -11,14 +11,24 @@
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css"
+    />
+
     <title>Document</title>
   </head>
   <body>
     <header class="d-flex flex-column justify-content-center pt-4">
-      <button id="start" class="btn btn-outline-success p-3 mx-auto">New Game</button>
+      <button id="start" class="btn btn-outline-success p-3 mx-auto">
+        New Game
+      </button>
     </header>
     <main class="d-flex flex-column position-relative pt-2">
-      <div id="error" class="d-flex justify-content-center align-items-center"></div>
+      <div
+        id="error"
+        class="d-flex justify-content-center align-items-center"
+      ></div>
       <div class="svgFrame">
         <div id="win" class="d-flex"></div>
         <div id="lost" class="d-flex"></div>
@@ -304,7 +314,9 @@
         </svg>
       </div>
       <div id="word" class="d-flex pb-5"></div>
-      <input id="char" type="text" class="border-success" />
+      <input id="char" type="text" class="border-success" maxlength="1" />
+
+      <div class="simple-keyboard"></div>
     </main>
 
     <script
@@ -312,6 +324,8 @@
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+
     <script src="./script.js"></script>
   </body>
 </html>
